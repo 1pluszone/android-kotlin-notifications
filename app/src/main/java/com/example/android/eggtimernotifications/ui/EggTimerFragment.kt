@@ -25,6 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -59,6 +60,23 @@ class EggTimerFragment : Fragment() {
         // TODO: Step 1.6 START create a channel
 
         // TODO: Step 1.6 END create a channel
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                channelId, channelName, NotificationManager.IMPORTANCE_LOW
+            )
+
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.description = "It is time for breakfast"
+
+            val notificationManager = requireActivity().getSystemService(
+                NotificationManager::class.java
+            )
+                notificationManager.createNotificationChannel(notificationChannel)
+
+
+        }
 
     }
 
